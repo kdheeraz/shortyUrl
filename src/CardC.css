@@ -1,0 +1,70 @@
+.cardcss
+{
+    width: 280px;
+    height:fit-content;
+    background-color: rgb(250, 235, 246);
+    border: 1px solid lightgray;
+    /* margin-bottom: 20px; */
+    font-family: 'Source Sans Pro', sans-serif;
+    border-radius: 15px;
+    background-blend-mode: screen;
+
+    float: left;
+
+    /* text-shadow: 1px 1px 2px black, 1px 1px 2px blue, 1px 1px 1px darkblue; */
+
+    
+}
+
+.rmbtn{
+
+    width: 10px;
+    height:10px;
+    background: "https://cdn.pixabay.com/photo/2013/07/12/17/00/remove-151678_1280.png";
+   
+
+
+}
+.cardcss2
+{
+    /* align-self: center; */
+
+    font-size: x-small;
+
+    
+    
+}
+
+/* .cardTitle{
+    margin: 3px 3px 3px 3px;
+    border: green solid 2px;
+
+} */
+.cardTitle{
+    font-size: x-small;
+    padding: 1px;
+    font-family: 'Source Sans Pro', sans-serif;
+
+}
+
+.bt{
+    font-size: x-small;
+    text-align: center;
+    height: 27px;
+    width: 70px;
+    margin-left: 40px;
+    margin-right: 10px;
+}
+
+.zerbt{
+background-color: white;
+    width:0px;
+    height:0px;
+
+}
+
+h2{
+
+    text-shadow: 1px 1px 2px black, 2px 2px 2px blue, 2px 2px 2px darkblue;
+
+}

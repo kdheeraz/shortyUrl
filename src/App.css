@@ -1,0 +1,36 @@
+*{
+  margin: 20px;
+}
+
+/* .App {
+  
+  margin-left: 20px;
+} */
+
+/* .customNav{
+  box-shadow: darkgoldenrod;
+  padding-right: 20px;
+  margin: 5px;
+  background-color: rgb(250, 235, 246);
+  height: 50px;
+  width:auto;
+   font-size: small;
+} */
+
+.rowcol{
+  height: 130px;
+  background-color:  rgb(250, 235, 246);
+
+  border-radius: 15px;
+  
+}
+
+p{
+  padding: 60px;
+  width: auto;
+  height: 500px;
+  background-color: rgb(250, 235, 246);
+    border: 1px solid lightgray;
+
+    border-radius: 15px;
+}
