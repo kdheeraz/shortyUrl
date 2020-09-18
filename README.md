@@ -1,8 +1,8 @@
-ShortyUrl:
+#ShortyUrl:
 
 To start with project, dependecies need to be installed.
 
-For that go to shoryUrl dir:than do npm install (React UI)
+For that go to shoryUrl directory than do npm install (React UI)
 
 For java go to Demo dir and run MVN clean install
 
