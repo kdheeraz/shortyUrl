@@ -133,7 +133,6 @@ public String createGroupService(Map docData) throws InterruptedException, Execu
     ApiFuture<WriteResult> future = db.collection("groups").document(generatedId).set(docData);
 
     System.out.println("Update time : " + future.get().getUpdateTime());
-    future.get().getUpdateTime().compareTo(other)
     
     
 
