@@ -10,19 +10,13 @@ import com.example.demo.DBModelWithId;
 import com.example.demo.DBService;
 import com.example.demo.FormValidate;
 import com.example.demo.ShortUrlGenerator;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -32,54 +26,25 @@ import org.springframework.web.servlet.view.RedirectView;
  *
  */
 @RestController
-//@EnableAutoConfiguration
 @RequestMapping("/api")
 public class ControllerClass {
 
     @Autowired
     DBService dbService;
-	//private Object put;
-    
-    //@Autowired
-    
 
-    
-
-   
-//     public DBModel sayHello() throws InterruptedException, ExecutionException {
-
-//     //return new RedirectView("http://www.google.com");
-// //return "Hello World Developer!!!";
-// System.out.println(dbService.getPatientDetails("GEAIrD8QsOQYNuKgj7es"));
-// return dbService.getPatientDetails("GEAIrD8QsOQYNuKgj7es");
-// }
 
 @RequestMapping(method=RequestMethod.GET,path="/v1/{shortUrl}")
-//@GetMapping()
-//@ResponseBody
+
 public RedirectView getUrl(@PathVariable final String shortUrl) throws InterruptedException, ExecutionException {
 
-    // Add a new document (asynchronously) in collection "cities" with id "LA"
-
     
-    
-    // future.get() blocks on response
     return new RedirectView(dbService.getUrl(shortUrl));
 }
 
 
-
-//@RequestMapping("/create/{title}/{url}/{description}/{group}/{expTime}")
-//@CrossOrigin(origins = "http://localhost:3000")
 @PostMapping("/v1/create")
-//@ResponseBody
-//public String createCard(@PathVariable final String title,@PathVariable final String description,@PathVariable final String group,@PathVariable final String url,@PathVariable final String expTime) throws InterruptedException, ExecutionException {
     public String createCard(
-    // @RequestParam("title") String title,
-    // @RequestParam("description") String description,
-    // @RequestParam("url") String url,
-    // @RequestParam("group") String group,
-    // @RequestParam("expTime") String expTime
+    
 
     @RequestBody DBModel dbModel
 
@@ -89,9 +54,6 @@ public RedirectView getUrl(@PathVariable final String shortUrl) throws Interrupt
 
         System.out.println(dbModel.getDescription());
 
-        // Gson g = new Gson();
-
-        // DBModel dbModel=g.fromJson(alpha,DBModel.class);
         System.out.println(dbModel);
 
         FormValidate formValidate =new FormValidate();
@@ -122,26 +84,18 @@ public RedirectView getUrl(@PathVariable final String shortUrl) throws Interrupt
     docData.put("expireThresh",dbModel.getExpTime());
     // Add a new document (asynchronously) in collection "cities" with id "LA"
 
-    dbService.setPatientDetails(docData);
+    dbService.setCardDetails(docData);
     
     //future.get() blocks on response
 
 
 
-    return "bingo";
+    return "Card Created";
         }
 }
 
 //@RequestMapping("/update/{id}/{title}/{url}/{description}/{group}/{expTime}")
 @PostMapping("/v1/update")
-//@ResponseBody
-// public String UpdateCard(@RequestParam("id") String id,
-//     @RequestParam("title") String title,
-// @RequestParam("description") String description,
-// @RequestParam("url") String url,
-// @RequestParam("group") String group,
-// @RequestParam("expireThresh") String expireThresh,
-// @RequestParam("expTime") String expTime) throws InterruptedException, ExecutionException
 
 public String UpdateCard(@RequestBody DBModelWithId dbModel) throws InterruptedException, ExecutionException 
 {
@@ -196,8 +150,7 @@ public String deleteCard(@RequestBody DBModelWithId dbModel) throws InterruptedE
 
 
 @PostMapping("/v1/createGroup")
-//@GetMapping()
-//@ResponseBody
+
 public String createGroup(@RequestBody CreateGroup createGroup) throws InterruptedException, ExecutionException {
 
     if(createGroup.getName()==null || createGroup.getName()==""){
@@ -220,27 +173,8 @@ public String createGroup(@RequestBody CreateGroup createGroup) throws Interrupt
 
      dbService.createGroupService(docData);
 
-    //dbService.deleteDetails(dbModel.getId());
-    
-    // future.get() blocks on response
     return "Group Created";
     }
 }
 
-
-// @RequestMapping("/abcd")
-// //@GetMapping()
-// @ResponseBody
-// public RedirectView urlHit() throws InterruptedException, ExecutionException {
-
-//     // Add a new document (asynchronously) in collection "cities" with id "LA"
-
-// //     dbService.deleteDetails(id);
-    
-// //     // future.get() blocks on response
-// //     return "deleted";
-
-// return new RedirectView("http://www.google.com");
-
-//  }
 }
