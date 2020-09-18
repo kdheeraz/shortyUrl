@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
+
+
 
 /**
  *
@@ -31,11 +35,18 @@ public class ControllerClass {
 
     @Autowired
     DBService dbService;
+	private Object put;
 
 
 @RequestMapping(method=RequestMethod.GET,path="/v1/{shortUrl}")
 
 public RedirectView getUrl(@PathVariable final String shortUrl) throws InterruptedException, ExecutionException {
+
+    String url=dbService.getUrl(shortUrl);
+
+    if(url=="Short Link has expired"){
+        return new RedirectView("https://support.virtru.com/hc/en-us/articles/360042098293--Your-verification-link-has-expired-error-message");
+    }
 
     
     return new RedirectView(dbService.getUrl(shortUrl));
@@ -51,6 +62,8 @@ public RedirectView getUrl(@PathVariable final String shortUrl) throws Interrupt
 
     
     ) throws InterruptedException, ExecutionException {
+
+        DateTime dateTime= new DateTime();
 
         System.out.println(dbModel.getDescription());
 
@@ -73,6 +86,7 @@ public RedirectView getUrl(@PathVariable final String shortUrl) throws Interrupt
       final ShortUrlGenerator shortUrlGenerator=new ShortUrlGenerator();
 
      final String shUrl=shortUrlGenerator.randomUrlGen();
+     
 
      System.out.println(shUrl);
     docData.put("title", dbModel.getTitle());
@@ -81,7 +95,9 @@ public RedirectView getUrl(@PathVariable final String shortUrl) throws Interrupt
     docData.put("shortUrl", shUrl);
     docData.put("flag", true);
     docData.put("description",dbModel.getDescription());
-    docData.put("expireThresh",dbModel.getExpTime());
+    put = docData.put("expireThresh",dbModel.getExpTime());
+    docData.put("updateTime",dateTime.now().toString("MM/dd/yyyy HH:mm:ss"));
+
     // Add a new document (asynchronously) in collection "cities" with id "LA"
 
     dbService.setCardDetails(docData);

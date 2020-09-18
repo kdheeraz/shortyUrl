@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -16,7 +18,10 @@ import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 
 import org.springframework.stereotype.Service;
-import java.time.LocalDateTime;
+import org.joda.time.DateTime;
+import org.joda.time.Minutes;
+import org.joda.time.Days;
+import org.joda.time.Hours;
 
 @Service
 public class DBService {
@@ -104,23 +109,60 @@ public String updateDetails(String id,Map docData) throws InterruptedException, 
 
 public String getUrl(String shortUrl) throws InterruptedException, ExecutionException {
     final Firestore db = com.google.firebase.cloud.FirestoreClient.getFirestore();
-    //String generatedId=this.randomStringGen();
 
-    //asynchronously retrieve multiple documents
+    DateTime dateTime=new DateTime();
+    String id="";
+    
 ApiFuture<QuerySnapshot> future =
     db.collection("cards").whereEqualTo("shortUrl", shortUrl).get();
 // future.get() blocks on response
 List <QueryDocumentSnapshot> documents = future.get().getDocuments();
 String urlToHit="";
+long expTime=0;
+long minutes=0;
 for (DocumentSnapshot document : documents) {
     urlToHit=document.getString("url");
-  System.out.println(document.getString("url"));
+    SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+    expTime=(long)document.get("expireThresh");
+    id=document.getId();
+
+	Date d1 = null;
+	Date d2 = null;
+
+	try {
+		d1 = format.parse(document.getString("updateTime"));
+		d2 = format.parse(dateTime.now().toString("MM/dd/yyyy HH:mm:ss"));
+
+		DateTime dt1 = new DateTime(d1);
+		DateTime dt2 = new DateTime(d2);
+
+
+
+        minutes=(Days.daysBetween(dt1, dt2).getDays()*24*60+(Hours.hoursBetween(dt1, dt2).getHours() % 24)*60+ Minutes.minutesBetween(dt1, dt2).getMinutes() % 60);
+        System.out.println(minutes);
+        
+
+    }
+    catch (Exception e) {
+		e.printStackTrace();
+	 }
+
+
+}
+
+if(minutes>expTime || minutes>60){
+    this.deleteDetails(id);
+    return "Short Link has expired";
+}
+else{
+
+    return urlToHit;
 
 }
 
     
 
-        return urlToHit;
+      
 }
 
 public String createGroupService(Map docData) throws InterruptedException, ExecutionException {

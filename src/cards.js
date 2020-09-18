@@ -10,7 +10,7 @@ import Tooltip from '@material-ui/core/Icon';
 //import { Button,Navbar,Nav,NavDropdown,Form,FormControl,Table } from 'react-bootstrap';
 
 //import IconButton from '@material-ui/core/IconButton';
-import {Button} from '@material-ui/core/'
+import {Button, Container} from '@material-ui/core/'
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -96,14 +96,17 @@ if(cross && (props.user.group===props.fil || props.fil==="" || props.fil==="All"
         
         <div className="cardcss">
             
-            <div className="cardTitle">{props.user.title}</div>
+            <div className="cardTitle"><a  href={"http://localhost:8080/api/v1"+"/"+
+    props.user.shortUrl} add target="_blank">{props.user.title}</a></div>
             <hr></hr>
             
             {/* <div className="cardTitle" onMouseEnter={Disc}  onMouseOut={revdesc} onClick={"http://google.com"}> */}
 
             {/* <div className="cardTitle"> */}
-    <div data-toggle="tooltip" title={props.description}><a  href={"http://localhost:8080/api/v1"+"/"+
-    props.user.shortUrl} add target="_blank">Description:{props.description.substr(0,25)+"...."}</a></div>
+            <Container>
+    <div data-toggle="tooltip" title={props.description}>Description:{props.description.substr(0,50)+"...."}</div>
+
+    </Container>
 
                 {/* </div> */}
 

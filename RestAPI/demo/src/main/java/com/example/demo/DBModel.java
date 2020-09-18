@@ -1,5 +1,6 @@
 package com.example.demo;
 
+
 public class DBModel {
     private String title;
 
